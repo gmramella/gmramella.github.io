@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>P�gina pessoal do Rex</title>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script type="text/javascript" src="../js/jquery-1.12.0.min.js"></script>
+
+		<script type="text/javascript" src="../js/navegacao.js"></script>
+		<script type="text/javascript" src="../js/cabecalho.js"></script>
+		<script type="text/javascript" src="../js/footer.js"></script>
+		<script type="text/javascript" src="../js/script.js"></script>
+		<script type="text/javascript" src="./mp3.js"></script>
+	</head>
+	<div class="body">
+	<body>
+		<div style="background-color: green;border-radius:10px;">
+		<div>
+			<audio id="myAudio" controls></audio>
+		</div>
+		<div>
+			Sele��o direta da m�sica
+			<select id=selecao onChange="playSelected(this);"></select>
+		</div>
+		<div>
+			<button id="previous" onClick="previous();">Previous</button>
+			<button id="restart" onClick="restart();">Restart</button>
+			<button id="play" onClick="play();">Play</button>
+			<button id="stop" onClick="stop();">Stop</button>
+			<button id="next" onClick="next();">Next</button>
+			<button id="increase" onClick="increase();">Volume Up</button>
+			<button id="decrease" onClick="decrease();">Volume Down</button>
+			<input type="checkbox" id="random" value="random" color="white">Random
+			<input type="checkbox" id="repeat" value="repeat" color="white">Repeat
+		</div>
+
+		<script>
+			var musicas = [];
+			musicas.push("Ain't No Fun (Waiting Round To Be A Millionaire)");
+			musicas.push("All Screwed Up"); 
+			musicas.push("Anything Goes");
+			musicas.push("Are You Ready");
+			musicas.push("Baby, Please Don't Go");
+			musicas.push("Back In Black");
+			musicas.push("Back In Business");
+			musicas.push("Back Seat Confidential");
+			musicas.push("Bad Boy Boogie");
+			musicas.push("Badlands");
+			musicas.push("Ballbreaker");
+			musicas.push("Baptism By Fire");
+			musicas.push("Beating Around The Bush");
+			musicas.push("Bedlam In Belgium");
+			musicas.push("Big Balls");
+			musicas.push("Big Gun");
+			musicas.push("Big Jack");
+			musicas.push("Black Ice");
+			musicas.push("Boogie Man");
+			musicas.push("Borrowed Time");
+			musicas.push("Brain Shake");
+			musicas.push("Breaking The Rules");
+			musicas.push("Burnin' Alive");
+			musicas.push("C.O.D");
+			musicas.push("Can I Sit Next To You Girl");
+			musicas.push("Can't Stand Still");
+			musicas.push("Can't Stop Rock 'n' Roll");
+			musicas.push("Carry Me Home");
+			musicas.push("Caught With Your Pants Down");
+			musicas.push("Chase The Ace");
+			musicas.push("Cold Hearted Man");
+			musicas.push("Come And Get It");
+			musicas.push("Cover You In Oil");
+			musicas.push("Crabsody In Blue");
+			musicas.push("Cyberspace");
+			musicas.push("D.T");
+			musicas.push("Damned");
+			musicas.push("Danger");
+			musicas.push("Decibel");
+			musicas.push("Deep In The Hole");
+			musicas.push("Dirty Deeds Done Dirt Cheap");
+			musicas.push("Dirty Eyes");
+			musicas.push("Dog Eat Dog");
+			musicas.push("Dogs of War");
+			musicas.push("Down On The Borderline");
+			musicas.push("Down Payment Blues");
+			musicas.push("Emission Control");
+			musicas.push("Evil Walks");
+			musicas.push("Fire Your Guns");
+			musicas.push("First Blood");
+			musicas.push("Flick Of The Switch");
+			musicas.push("Fling Thing");
+			musicas.push("Fly On The Wall");
+			musicas.push("For Those About To Rock (We Salute You)");
+			musicas.push("Get It Hot");
+			musicas.push("Gimme A Bullet");
+			musicas.push("Girls Got Rhythm");
+			musicas.push("Give It Up");
+			musicas.push("Given The Dog A Bone");
+			musicas.push("Go Down");
+			musicas.push("Go Zone");
+			musicas.push("Gone Shootin'");
+			musicas.push("Goodbye And Good Riddance To Bad Luck");
+			musicas.push("Got Some Rock & Roll Thunder");
+			musicas.push("Got You By The Balls");
+			musicas.push("Guitar Band");
+			musicas.push("Guns For Hire");
+			musicas.push("Hail Caesar");
+			musicas.push("Hard As A Rock");
+			musicas.push("Hard Times");
+			musicas.push("Have A Drink On Me");
+			musicas.push("Heatseeker");
+			musicas.push("Hell Ain't A Bad Place To Be");
+			musicas.push("Hell Or High Water");
+			musicas.push("Hells Bells");
+			musicas.push("High Voltage");
+			musicas.push("Highway To Hell");
+			musicas.push("Hold Me Back");
+			musicas.push("House Of Jazz");
+			musicas.push("If You Dare");
+			musicas.push("If You Want Blood (You've Got It)");
+			musicas.push("Inject The Venom");
+			musicas.push("It's A Long Way To The Top (If You Wanna Rock 'N' Roll)");
+			musicas.push("Jailbreak");
+			musicas.push("Kicked In The Teeth");
+			musicas.push("Kissin' Dynamite");
+			musicas.push("Landslide");
+			musicas.push("Let Me Put My Love Into You");
+			musicas.push("Let There Be Rock");
+			musicas.push("Let's Get It Up");
+			musicas.push("Let's Make It");
+			musicas.push("Little Lover");
+			musicas.push("Live Wire");
+			musicas.push("Love At First Feel");
+			musicas.push("Love Bomb");
+			musicas.push("Love Hungry Man");
+			musicas.push("Love Song");
+			musicas.push("Meanstreak");
+			musicas.push("Meltdown");
+			musicas.push("Messin' With The Kid");
+			musicas.push("Miss Adventure");
+			musicas.push("Mistress For Christmas");
+			musicas.push("Money Made");
+			musicas.push("Moneytalks");
+			musicas.push("Nervous Shakedown");
+			musicas.push("Nick Of Time");
+			musicas.push("Night Of The Long Knives");
+			musicas.push("Night Prowler");
+			musicas.push("Overdose");
+			musicas.push("Play Ball");
+			musicas.push("Playing With Girls");
+			musicas.push("Problem Child");
+			musicas.push("Put The Finger On You");
+			musicas.push("R.I.P (Rock in Peace)");
+			musicas.push("Ride On");
+			musicas.push("Riff Raff");
+			musicas.push("Rising Power");
+			musicas.push("Rock And Roll Ain't Noise Pollution");
+			musicas.push("Rock 'N' Roll Damnation");
+			musicas.push("Rock 'N Roll Dream");
+			musicas.push("Rock 'N' Roll Singer");
+			musicas.push("Rock 'N Roll Train");
+			musicas.push("Rock or Bust");
+			musicas.push("Rock The Blues Away");
+			musicas.push("Rock The House");
+			musicas.push("Rock Your Heart Out");
+			musicas.push("Rocker");
+			musicas.push("Rockin' In The Parlour");
+			musicas.push("Rocking All the Way");
+			musicas.push("Round And Round And Round");
+			musicas.push("Ruff Stuff");
+			musicas.push("Safe In New York City");
+			musicas.push("Satellite Blues");
+			musicas.push("School Days");
+			musicas.push("Send For The Man");
+			musicas.push("Shake A Leg");
+			musicas.push("Shake Your Foundations");
+			musicas.push("She Likes Rock 'N Roll");
+			musicas.push("She's Got Balls");
+			musicas.push("Shoot To Thrill");
+			musicas.push("Shot Down In Flames");
+			musicas.push("Shot Of Love");
+			musicas.push("Show Business");
+			musicas.push("Sin City");
+			musicas.push("Sink The Pink");
+			musicas.push("Skies on Fire");
+			musicas.push("Smash 'N Grab");
+			musicas.push("Snake Eye");
+			musicas.push("Snowballed");
+			musicas.push("Some Sin For Nuthin'");
+			musicas.push("Soul Stripper");
+			musicas.push("Spellbound");
+			musicas.push("Spoilin' for a Fight");
+			musicas.push("Squealer");
+			musicas.push("Stand Up");
+			musicas.push("Stick Around");
+			musicas.push("Stiff Upper Lip");
+			musicas.push("Stormy May Day");
+			musicas.push("Sweet Candy");
+			musicas.push("T.N.T");
+			musicas.push("That's The Way I Wanna Rock N Roll");
+			musicas.push("The Furor");
+			musicas.push("The Honey Roll");
+			musicas.push("The Jack");
+			musicas.push("The Razor's Edge");
+			musicas.push("There's Gonna Be Some Rockin'");
+			musicas.push("This House Is On Fire");
+			musicas.push("This Means War");
+			musicas.push("Thunderstruck");
+			musicas.push("Touch Too Much");
+			musicas.push("Two's Up");
+			musicas.push("Up To My Neck In You");
+			musicas.push("Walk All Over You");
+			musicas.push("War Machine");
+			musicas.push("What Do You Do For Money Honey");
+			musicas.push("What's Next To The Moon");
+			musicas.push("Wheels");
+			musicas.push("Whiskey On The Rocks");
+			musicas.push("Who Made Who");
+			musicas.push("Whole Lotta Rosie");
+			musicas.push("You Ain't Got A Hold On Me");
+			musicas.push("You Shook Me All Night Long");
+
+			var buttons = document.getElementsByTagName('button');
+			$.fn.widest = function() {return this.length ? this.width(Math.max.apply(Math, this.map(function() {return $(this).width()+1;}))) : this;};
+			$(buttons).widest();
+
+			var audio = document.getElementById('myAudio');
+			var botaoPlay = document.getElementById('play');
+			var ra = document.getElementById('random');
+			var re = document.getElementById('repeat');
+			var atual = 0;
+
+			var s = document.getElementById("selecao");
+			for(var i=0;i<musicas.length;i++) {
+				var option = document.createElement("option");
+				option.id = i;
+				option.value = musicas[i]+".mp3";
+				option.text = musicas[i];
+				s.add(option);
+			}
+
+			function playSelected(sel) {
+				atual = sel.selectedIndex;
+				audio.src = sel.value;
+				audio.play();
+				botaoPlay.textContent = "Pause";
+			}
+
+			function previous() {
+				if (ra.checked) {
+					atual = randoms[randomsIndex()-1];
+				} else {
+					atual = (atual-1) % musicas.length;
+				}
+				audio.src = musicas[atual]+".mp3";
+				audio.play();
+				botaoPlay.textContent = "Pause";
+				$('#selecao option:contains(' + musicas[atual] + ')').prop({selected: true});
+			}
+			function restart() {
+				audio.src = musicas[atual]+".mp3";
+				audio.play();
+				botaoPlay.textContent = "Pause";
+			}
+			function play() {
+				if (audio.paused) {
+					audio.play();
+					botaoPlay.textContent = "Pause";
+				}
+				else {
+					audio.pause();
+					botaoPlay.textContent = "Play";
+				}
+			}
+			function stop() {
+				audio.pause();
+				audio.currentTime = 0;
+				botaoPlay.textContent = "Play";
+			}
+			function next() {
+				if (ra.checked) {
+					atual = randoms[randomsIndex()+1];
+				} else {
+					atual = (atual+1) % musicas.length;
+				}
+				audio.src = musicas[atual]+".mp3";
+				audio.play();
+				botaoPlay.textContent = "Pause";
+				$('#selecao option:contains(' + musicas[atual] + ')').prop({selected: true});
+			}
+			function increase() {
+				audio.volume+=0.1;
+			}
+			function decrease() {
+				audio.volume-=0.1;
+			}
+
+			var randoms = [];
+			for (var i=0;i<musicas.length;i++) randoms[i]=i;
+			function shuffle(array) {
+				var tmp, current, top = array.length;
+				if(top) while(--top) {
+					current = Math.floor(Math.random() * (top + 1));
+					tmp = array[current];
+					array[current] = array[top];
+					array[top] = tmp;
+				}
+			}
+			for (var i=0;i<musicas.length;i++) shuffle(randoms);
+			function randomsIndex() {
+				for (var i=0;i<randoms.length;i++) {
+					if (randoms[i] == atual) return i;
+				}
+			}
+
+			atual = randoms[atual];
+			audio.src = musicas[atual]+".mp3";
+			audio.play();
+			$('#selecao option:contains(' + musicas[atual] + ')').prop({selected: true});
+
+			audio.addEventListener("ended", function() {
+				if (!re.checked) {
+					if (ra.checked) {
+						atual = randoms[atual];
+					} else {
+						atual = (atual + 1) % musicas.length;
+					}
+				}
+				audio.src = musicas[atual]+".mp3";
+				audio.play();
+				$('#selecao option:contains(' + musicas[atual] + ')').prop({selected: true});
+			});
+		</script>
+	</body>
+	</div>
+</html>
